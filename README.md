@@ -37,7 +37,7 @@ touch database/create_tables.sql
 ```bash
 npm create vite@latest frontend -- --template react-ts
 cd frontend
-npm install
+npm install -S react-router-dom primereact primeflex primeicons @mui/material @emotion/react @emotion/styled react-simple-maps
 ```
 
 4. Set up the PostgreSQL database

@@ -1,35 +1,49 @@
 import { useState } from "react";
+import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 import "../App.css";
-import reactLogo from "../assets/react.svg";
 import { TopBar } from "../components/TopBar";
-import viteLogo from "/vite.svg";
+
+const geoUrl =
+  "https://raw.githubusercontent.com/deldersveld/topojson/master/world-countries.json";
 
 function Map() {
-  const [count, setCount] = useState(0);
+  const [hoveredCountry, setHoveredCountry] = useState(null);
+
+  const handleMouseEnter = (geo) => {
+    setHoveredCountry(geo.properties.name);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredCountry(null);
+  };
 
   return (
     <>
       <TopBar />
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <h1>Map</h1>
+        <ComposableMap
+          projection="geoMercator"
+          projectionConfig={{ scale: 100 }}
+        >
+          <Geographies geography={geoUrl}>
+            {({ geographies }) =>
+              geographies.map((geo) => (
+                <Geography
+                  key={geo.rsmKey}
+                  geography={geo}
+                  fill={
+                    geo.properties.name === hoveredCountry ? "blue" : "#ccc"
+                  }
+                  onMouseEnter={() => handleMouseEnter(geo)}
+                  onMouseLeave={handleMouseLeave}
+                  onClick={() => {}}
+                />
+              ))
+            }
+          </Geographies>
+        </ComposableMap>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   );
 }

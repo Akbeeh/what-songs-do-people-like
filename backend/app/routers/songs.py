@@ -1,4 +1,5 @@
-from datetime import date
+import hashlib
+from datetime import datetime
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
@@ -28,12 +29,12 @@ def get_song(song_id: int, db: Session = Depends(get_db)):
 
 @router.get("/")
 async def read_songs():
-    return [
+    songs = [
         {
             "title": "Ditto",
             "artist": "NewJeans",
             "album": "Ditto",
-            "release_date": date(2022, 12, 19),
+            "release_date": datetime(2022, 12, 19),
             "duration": 185,
             "genre": "kpop",
         },
@@ -41,11 +42,18 @@ async def read_songs():
             "title": "OMG",
             "artist": "NewJeans",
             "album": "OMG",
-            "release_date": date(2023, 1, 2),
+            "release_date": datetime(2023, 1, 2),
             "duration": 202,
             "genre": "kpop",
         },
     ]
+
+    for song in songs:
+        title = song["title"]
+        artist = song["artist"]
+        song["id"] = hashlib.sha256(f"{title}-{artist}".encode()).hexdigest()
+
+    return songs
 
 
 @router.post("/")

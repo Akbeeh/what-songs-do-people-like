@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 export const TopBar = () => {
   const leftContents = (
     <React.Fragment>
-      <Link to="/" style={{ display: "flex", alignItems: "center" }}>
+      <Link to="/" className="flex align-items-center ">
         <GraphicEqIcon fontSize="large" />
         <span>What songs do people like?</span>
       </Link>
@@ -16,15 +16,18 @@ export const TopBar = () => {
 
   const rightContents = (
     <React.Fragment>
+      <Link to="/top-songs">
+        <Button icon="pi pi-flag" className="mr-1" aria-label="Map" />
+      </Link>
+      <Link to="/map">
+        <Button icon="pi pi-map" className="mr-1" aria-label="Map" />
+      </Link>
       <Link to="/about">
         <Button
           icon="pi pi-question-circle"
           className="mr-1"
           aria-label="About"
         />
-      </Link>
-      <Link to="/top-songs">
-        <Button icon="pi pi-map" className="mr-1" aria-label="Map" />
       </Link>
       <Button icon="pi pi-language" className="mr-1" aria-label="Language" />
       <Button icon="pi pi-sun" aria-label="Theme" />
@@ -33,7 +36,11 @@ export const TopBar = () => {
 
   return (
     <>
-      <Toolbar start={leftContents} end={rightContents} />
+      <Toolbar
+        start={leftContents}
+        end={rightContents}
+        className="bg-transparent"
+      />
     </>
   );
 };
