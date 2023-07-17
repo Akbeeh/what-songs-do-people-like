@@ -163,4 +163,4 @@ cython_debug/
 .vscode/
 
 # Credentials
-credentials/credentials.json
+backend/app/credentials/credentials.json
