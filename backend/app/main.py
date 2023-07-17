@@ -3,8 +3,9 @@ from fastapi import Depends, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 
-from .dependencies import get_db, get_query_token, get_token_header
-from .models import Song
+from .credentials import auth
+from .database.database import connect_to_database
+from .database.models import Song
 from .routers import songs, users
 
 # With the help of https://fastapi.tiangolo.com/tutorial/bigger-applications/
@@ -35,13 +36,20 @@ app.include_router(users.router)
 app.include_router(songs.router)
 
 
+# NOTE: TOKEN IS ONLY AVAILABLE FOR ONE HOUR
+@app.on_event("startup")
+async def startup_event_get_token():
+    # Generate the access token
+    auth.generate_access_token()
+
+
 @app.get("/")
 async def root():
     return {"message": "Hello Bigger Applications!"}
 
 
 @app.get("/songs/{song_id}")
-def get_song(song_id: int, db: Session = Depends(get_db)):
+def get_song(song_id: str, db: Session = Depends(connect_to_database)):
     # Retrieve the song from the database using SQLAlchemy
     song = db.query(Song).filter(Song.song_id == song_id).first()
     if song is None:

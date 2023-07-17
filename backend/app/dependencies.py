@@ -1,7 +1,6 @@
 from typing import Annotated
 
 from fastapi import Header, HTTPException
-from sqlalchemy.orm import Session
 
 
 async def get_token_header(x_token: Annotated[str, Header()]):
@@ -12,11 +11,3 @@ async def get_token_header(x_token: Annotated[str, Header()]):
 async def get_query_token(token: str):
     if token != "jessica":
         raise HTTPException(status_code=400, detail="No Jessica token provided")
-
-
-async def get_db():
-    db = Session()
-    try:
-        yield db
-    finally:
-        db.close()

@@ -1,3 +1,5 @@
+from typing import List
+
 from sqlalchemy.orm import Session
 
 from .models import Song
@@ -8,7 +10,10 @@ class SongRepository:
     def __init__(self, db: Session):
         self.db = db
 
-    def get_song(self, song_id: int) -> Song:
+    def get_all_songs(self) -> List[Song]:
+        return self.db.query(Song).all()
+
+    def get_song(self, song_id: str) -> Song:
         return self.db.query(Song).get(song_id)
 
     def create_song(self, song_data: SongCreate) -> Song:
@@ -18,7 +23,7 @@ class SongRepository:
         self.db.refresh(song)
         return song
 
-    def update_song(self, song_id: int, song_data: SongUpdate) -> Song:
+    def update_song(self, song_id: str, song_data: SongUpdate) -> Song:
         song = self.get_song(song_id)
         if song:
             for field, value in song_data.dict(exclude_unset=True).items():
@@ -27,7 +32,7 @@ class SongRepository:
             self.db.refresh(song)
         return song
 
-    def delete_song(self, song_id: int) -> bool:
+    def delete_song(self, song_id: str) -> bool:
         song = self.get_song(song_id)
         if song:
             self.db.delete(song)

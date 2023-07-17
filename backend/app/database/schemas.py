@@ -5,18 +5,18 @@ from pydantic import BaseModel
 
 
 class SongCreate(BaseModel):
+    song_id: str
     title: str
     artist: str
     album: str
     release_date: date
-    duration: int
-    genre: str
+    duration: str
 
 
 class SongUpdate(BaseModel):
+    song_id: Optional[str]
     title: Optional[str]
     artist: Optional[str]
     album: Optional[str]
     release_date: Optional[date]
-    duration: Optional[int]
-    genre: Optional[str]
+    duration: Optional[str]
