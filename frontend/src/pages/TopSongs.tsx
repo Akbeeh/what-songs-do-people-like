@@ -1,9 +1,14 @@
+import "primeflex/primeflex.css";
+import { DataView, DataViewLayoutOptions } from "primereact/dataview";
 import { useEffect, useState } from "react";
 import "../App.css";
 import { TopBar } from "../components/TopBar";
+import TopSongsGrid from "../components/TopSongsGrid";
+import TopSongsList from "../components/TopSongsList";
 
 function TopSongs() {
   const [topSongs, setTopSongs] = useState([]);
+  const [layout, setLayout] = useState("list");
 
   useEffect(() => {
     const fetchTopSongs = async () => {
@@ -19,16 +24,39 @@ function TopSongs() {
     fetchTopSongs();
   }, []);
 
+  const itemTemplate = (song: any, layout: string) => {
+    if (!song) {
+      return;
+    }
+
+    if (layout === "list") return <TopSongsList song={song} />;
+    else if (layout === "grid") return <TopSongsGrid song={song} />;
+  };
+
+  const header = () => {
+    return (
+      <div className="flex justify-content-end">
+        <DataViewLayoutOptions
+          layout={layout}
+          onChange={(e) => setLayout(e.value)}
+        />
+      </div>
+    );
+  };
+
   return (
     <>
       <TopBar />
-      <div>
+      <div className="top-songs">
         <h1>Top 50 Songs</h1>
-        <ul>
-          {topSongs.map((song) => (
-            <li key={song.id}>{song.title}</li>
-          ))}
-        </ul>
+        <div className="card">
+          <DataView
+            value={topSongs}
+            itemTemplate={itemTemplate}
+            layout={layout}
+            header={header()}
+          />
+        </div>
       </div>
     </>
   );
