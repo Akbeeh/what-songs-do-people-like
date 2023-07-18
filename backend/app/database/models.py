@@ -24,6 +24,7 @@ class Song(Base):
     song_id = Column(String, primary_key=True)
     title = Column(String, nullable=False)
     artist = Column(String, nullable=False)
+    image = Column(String, nullable=False)
     album = Column(String, nullable=False)
     release_date = Column(Date, nullable=False)
     duration = Column(String, nullable=False)
