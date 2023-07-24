@@ -15,8 +15,8 @@ def retrieve_data_from_spotify() -> dict:
     # Retrieve the access token from the credentials
     access_token = get_credentials()["spotify_access_token"]
 
-    # id_global_playlist = "37i9dQZEVXbMDoHDwVN2tF"
-    id_global_playlist = "3cEYpjA9oz9GiPac4AsH4n"
+    id_global_playlist = "37i9dQZEVXbMDoHDwVN2tF"
+    # id_global_playlist = "3cEYpjA9oz9GiPac4AsH4n"
 
     # Make a request to the Spotify API
     response = requests.get(

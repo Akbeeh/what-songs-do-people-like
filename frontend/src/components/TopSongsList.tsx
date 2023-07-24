@@ -9,8 +9,15 @@ function TopSongsList({ song }) {
   };
 
   return (
-    <div className="col-12">
+    <div key={song.song_id} className="col-12">
       <div className="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
+        <div>
+          <img
+            className="w-9 sm:w-16rem xl:w-5rem h-auto shadow-2 block xl:block mx-auto border-round"
+            src={song.image}
+            alt={song.title}
+          />
+        </div>
         <div className="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
           <div className="flex flex-column align-items-center sm:align-items-start gap-3">
             <div className="text-2xl font-bold text-900">
@@ -23,13 +30,15 @@ function TopSongsList({ song }) {
                   {truncateText(song.artist, 20)}
                 </span>
               </span>
-              <span className="flex align-items-center gap-2">
-                <AlbumIcon fontSize="medium" />
-                <span className="font-semibold">
-                  {truncateText(song.album, 40)}
-                </span>
-              </span>
             </div>
+          </div>
+          <div className="flex flex-column align-items-center sm:align-items-stretch gap-3">
+            <span className="flex align-items-center gap-2">
+              <AlbumIcon fontSize="medium" />
+              <span className="font-semibold">
+                {truncateText(song.album, 40)}
+              </span>
+            </span>
           </div>
           <div className="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-2 gap-4">
             <span className="font-semibold">{song.release_date}</span>

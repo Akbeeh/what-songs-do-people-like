@@ -11,7 +11,7 @@ The goal of the project is to create a web application that allows users to sear
 # `poetry init --no-interaction` to initialize a pre-existing project
 poetry new backend --name="app"
 cd backend
-poetry add fastapi sqlalchemy psycopg2-binary uvicorn
+poetry add fastapi sqlalchemy psycopg2-binary uvicorn pydantic requests spotipy
 # `poetry shell` to access the environment in the terminal
 ```
 
@@ -46,6 +46,13 @@ npm install -S react-router-dom primereact primeflex primeicons @mui/material @e
 sudo service postgresql restart
 sudo su - postgres
 psql
+CREATE DATABASE wsdpldb;
+CREATE USER wsdpl WITH PASSWORD 'wsdplPW';
+GRANT ALL PRIVILEGES ON DATABASE wsdpldb TO wsdpl;
+# TRUNCATE TABLE "table_name;" to reset the table
+# ALTER TABLE "table_name" ADD COLUMN "column_name" VARCHAR NOT NULL; to add info
+# "\c wsdpldb" to connect to the database
+# "\l" to check databases
 # "\q" to quit
 # "exit" to quit
 ```
