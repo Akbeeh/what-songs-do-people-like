@@ -30,7 +30,7 @@ def get_song(song_id: int, db: Session = Depends(connect_to_database)):
 
 @router.get("/")
 async def get_top_songs():
-    save_top_songs()
+    # save_top_songs()
     songs = get_songs_from_database()
 
     # Return the top songs data

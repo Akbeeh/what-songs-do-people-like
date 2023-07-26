@@ -57,7 +57,22 @@ GRANT ALL PRIVILEGES ON DATABASE wsdpldb TO wsdpl;
 # "exit" to quit
 ```
 
-5. Run the backend and frontend
+5. Set up Airflow
+```bash
+# In the backend
+# In fact, the ariflow.cfg must be placed in the $AIRFLOW_HOME folder (generally ~/airflow)
+airflow db init
+airflow users create \
+    --username admin \
+    --firstname William \
+    --lastname M \
+    --role Admin \
+    --email Akbeeeh@gmail.com
+airflow webserver
+airflow scheduler
+```
+
+6. Run the backend and frontend
 ```bash
 # In the backend
 uvicorn app.main:app --reload
@@ -65,3 +80,5 @@ uvicorn app.main:app --reload
 # In the frontend
 npm run dev
 ```
+
+7. Docker
