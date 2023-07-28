@@ -1,8 +1,10 @@
+import os
 from datetime import date
 from typing import List
 
 import requests
 from app.credentials.auth import get_credentials
+from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
@@ -16,7 +18,6 @@ def retrieve_data_from_spotify() -> dict:
     access_token = get_credentials()["spotify_access_token"]
 
     id_global_playlist = "37i9dQZEVXbMDoHDwVN2tF"
-    # id_global_playlist = "3cEYpjA9oz9GiPac4AsH4n"
 
     # Make a request to the Spotify API
     response = requests.get(
@@ -32,7 +33,9 @@ def retrieve_data_from_spotify() -> dict:
 
 def connect_to_database():
     # Function to establish connection with the PostgreSQL database
-    db_url = "postgresql://wsdpl:wsdplPW@localhost:5432/wsdpldb"
+    load_dotenv()
+    db_url = os.getenv("DATABASE_URL")
+
     engine = create_engine(db_url)
 
     # Create a session factory

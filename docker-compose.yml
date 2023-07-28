@@ -1,0 +1,60 @@
+version: "3"
+
+services:
+  fastapi-backend:
+    container_name: fastapi-backend
+    restart: always
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://wsdpl:wsdplPW@postgres:5432/wsdpldb
+    depends_on:
+      - postgres
+
+  react-frontend:
+    container_name: react-frontend
+    restart: always
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    depends_on:
+      - fastapi-backend
+
+  # airflow:
+  #   container_name: airflow-backend
+  #   restart: always
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   # environment:
+  #     # AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql://wsdpl:wsdplPW@postgres:5432/wsdpldb
+  #   ports:
+  #     - "8080:8080"
+  #   volumes:
+  #     - ./backend/dags:./backend/dags
+  #     - ./airflow/airflow.cfg:./airflow/airflow.cfg
+  #   depends_on:
+  #     - postgres
+  
+  postgres:
+    container_name: postgres-wsdpl
+    restart: always
+    image: postgres:14.8-alpine
+    environment:
+      - POSTGRES_USER=wsdpl
+      - POSTGRES_PASSWORD=wsdplPW
+      - POSTGRES_DB=wsdpldb
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data/
+      # copy the sql script to create tables
+      - ./sql/create_tables_wsdpl.sql:/docker-entrypoint-initdb.d/create_tables_wsdpl.sql
+
+volumes:
+    postgres-data:

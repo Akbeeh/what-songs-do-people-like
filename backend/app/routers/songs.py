@@ -30,7 +30,17 @@ def get_song(song_id: int, db: Session = Depends(connect_to_database)):
 
 @router.get("/")
 async def get_top_songs():
+    # Normally, we only access the database
+    # because the Airflow updates the database every one hour
+    # but as it doesn't work on Docker, we assume that everytime
+    # the user goes to the Top Songs page, it updates the database
+    # and displays them
     # save_top_songs()
+
+    # Update as we've put asyncio
+    # in order to counter the non working Apache Airflow server in Docker
+    # we can just retrieve the songs from the database
+    # and every hour, the database is updated
     songs = get_songs_from_database()
 
     # Return the top songs data

@@ -7,6 +7,7 @@ from .credentials import auth
 from .database.database import connect_to_database
 from .database.models import Song
 from .routers import songs, users
+from .scheduler import scheduler_update_db
 
 # With the help of https://fastapi.tiangolo.com/tutorial/bigger-applications/
 
@@ -40,7 +41,10 @@ app.include_router(songs.router)
 @app.on_event("startup")
 async def startup_event_get_token():
     # Generate the access token
-    auth.generate_access_token()
+    # auth.generate_access_token()
+
+    # Generate the acces token + update the database
+    await scheduler_update_db()
 
 
 @app.get("/")

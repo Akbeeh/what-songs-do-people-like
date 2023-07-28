@@ -7,13 +7,15 @@ import TopSongsGrid from "../components/TopSongsGrid";
 import TopSongsList from "../components/TopSongsList";
 
 function TopSongs() {
+  type LayoutOption = 'list' | 'grid';
   const [topSongs, setTopSongs] = useState([]);
-  const [layout, setLayout] = useState("list");
+  const [layout, setLayout] = useState<LayoutOption>("list");
 
   useEffect(() => {
     const fetchTopSongs = async () => {
       try {
-        const response = await fetch("/api/songs");
+        // const response = await fetch("/api/songs"); doesn't work under Docker
+        const response = await fetch("http://localhost:8000/songs"); // work with both
         const data = await response.json();
         setTopSongs(data);
       } catch (error) {
@@ -38,7 +40,7 @@ function TopSongs() {
       <div className="flex justify-content-end">
         <DataViewLayoutOptions
           layout={layout}
-          onChange={(e) => setLayout(e.value)}
+          onChange={(e) => setLayout(e.value as LayoutOption)}
         />
       </div>
     );

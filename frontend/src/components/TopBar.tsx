@@ -17,10 +17,10 @@ export const TopBar = () => {
   const rightContents = (
     <React.Fragment>
       <Link to="/top-songs">
-        <Button icon="pi pi-flag" className="mr-1" aria-label="Map" />
+        <Button icon="pi pi-flag" className="mr-1" aria-label="TopSongs" />
       </Link>
       <Link to="/map">
-        <Button icon="pi pi-map" className="mr-1" aria-label="Map" />
+        <Button icon="pi pi-map" className="mr-1" aria-label="WorldMap" />
       </Link>
       <Link to="/about">
         <Button

@@ -1,7 +1,8 @@
 import AlbumIcon from "@mui/icons-material/Album";
+import { Song } from "./Song";
 
-function TopSongsGrid({ song }) {
-  const truncateText = (text, maxLength) => {
+function TopSongsGrid({ song }: { song: Song }) {
+  const truncateText = (text: string, maxLength: number) => {
     if (text.length > maxLength) {
       return text.substring(0, maxLength) + "...";
     }
