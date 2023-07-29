@@ -113,5 +113,5 @@ docker pull postgres:14.8-alpine
 
 ## Issues I encountered (by the way mostly or totally with Docker)
 - Airflow (with Docker): I couldn't figure out how to link correctly the Airflow server with FastAPI using custom Python packages, as it use handmade functions to reload the Spotify API token (in order to be able to do requests... + expires every hour)
-- Vite project (with Docker): I guess it's better to put directly http://localhost:8080/ in .tsx files (e.g. `frontend/src/pages/TopSongs.tsx`) that communicate with the backend, instead of using a proxy (by adding it in the `frontend/vite.config.ts`)
+- Vite project (with Docker): I guess it's better to put directly http://localhost:8000/ in .tsx files (e.g. `frontend/src/pages/TopSongs.tsx`) that communicate with the backend, instead of using a proxy (by adding it in the `frontend/vite.config.ts`)
 - PostgreSQL (with Docker): in the `DATABASE_URL` parameter, the network location configured must be carefully examinated. Indeed, when the app runs locally it's **localhost**, but with Docker, the network location should be taken from the PostgreSQL's location and informed to the backend (and therefore it's not **localhost** but the name of the service, here **postgres**)
