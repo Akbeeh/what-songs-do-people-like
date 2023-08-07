@@ -2,7 +2,7 @@
 Here's my first big personal project to develop my skills and become a good Data Engineer.
 
 ## Overview
-The goal of the project is to create a web application that allows users to search for songs, view their ratings on Spotify and Apple Music, and analyze the number of listens per country/region. Users will have their own accounts where they can like or dislike songs.
+The goal of the project is to create a web application that allows users to search for songs, view their ratings on Spotify, and analyze the number of listens per country/region. Users will have their own accounts where they can like or dislike songs.
 
 ## Steps followed to create the project
 
