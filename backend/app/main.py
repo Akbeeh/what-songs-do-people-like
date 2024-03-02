@@ -16,7 +16,7 @@ app = FastAPI(
     title="What songs do people like ?",
     contact={
         "name": "William M",
-        "url": "https://github.com/Akbeeh",
+        "url": "https://github.com/mokwilliam",
     },
 )
 
